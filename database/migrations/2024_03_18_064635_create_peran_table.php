@@ -11,14 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('peran', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email');
-            // $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            // $table->rememberToken();
+            $table->string('nama');
             // $table->timestamps();
+            $table->unsignedBigInteger('film_id')->unique();
+            $table->unsignedBigInteger('cast_id')->unique();
+            $table->foreign('film_id')->references('id')->on('film');
+            $table->foreign('cast_id')->references('id')->on('cast');
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('peran');
     }
 };
